@@ -1,0 +1,16 @@
+# Caddy obtains and renews a Let's Encrypt certificate automatically, as long
+# as PTO_DOMAIN resolves to this server and ports 80/443 are open.
+
+{$PTO_DOMAIN} {
+	encode gzip
+
+	# Single-user deployment: one password in front of everything.
+	# Generate the hash with:
+	#   docker run --rm caddy:2.8-alpine caddy hash-password --plaintext 'yourpassword'
+	basic_auth {
+		{$PTO_USER} {$PTO_PASSWORD_HASH}
+	}
+
+	# reverse_proxy upgrades WebSockets on its own, which Streamlit needs.
+	reverse_proxy app:8501
+}

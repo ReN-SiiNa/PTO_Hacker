@@ -1,0 +1,11 @@
+# --- UI ---
+# 1.60+ required: the app uses per-mode [theme.light]/[theme.dark] config,
+# st.context.theme, width="stretch", and React-Aria tab markup in its CSS.
+streamlit>=1.60,<2
+
+# --- Holiday data (vacanza/holidays): 200+ countries & subdivisions, offline ---
+# Optional at runtime: the app falls back to the curated JSON in data/ if absent.
+holidays>=0.100,<1
+
+# Everything else -- optimizer, fare mock, SQLite store, .ics/.csv export --
+# is Python standard library. No API keys, no network calls at runtime.

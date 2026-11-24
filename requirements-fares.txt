@@ -1,0 +1,11 @@
+# OPTIONAL: real flight prices, opt in with PTOHACKER_FARES=google
+#
+# fast-flights scrapes Google Flights (reverse-engineered protobuf + TLS
+# impersonation). It is not an API. Read before enabling:
+#   * automated access is against Google's terms of service
+#   * datacenter IPs are blocked far more aggressively than home ones, so a
+#     daily poll from a VPS is the pattern most likely to be throttled
+#   * the format changes without notice and parsing breaks
+#
+# Without this the app uses MockFareProvider, which is offline and synthetic.
+fast-flights>=3.1,<4

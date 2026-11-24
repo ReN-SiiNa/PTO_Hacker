@@ -1,0 +1,85 @@
+# Local:  docker compose up -d            -> http://localhost:8501
+# VPS:    docker compose --profile public up -d   -> https://your-domain
+#
+# The app port is bound to 127.0.0.1 on purpose. On a public VPS that means
+# nothing reaches Streamlit except through Caddy (or an SSH tunnel).
+
+services:
+  app:
+    build: .
+    image: pto-hacker:latest
+    restart: unless-stopped
+    environment:
+      PTOHACKER_DB: /data/pto.db
+      # The daemon schedules by LOCAL hour. Without TZ a container runs UTC,
+      # so an "08:00" digest would arrive at 13:30 in India.
+      TZ: ${TZ:-Asia/Kolkata}
+      PTOHACKER_NOTIFY: ${PTOHACKER_NOTIFY:-console}
+      PTOHACKER_TELEGRAM_TOKEN: ${PTOHACKER_TELEGRAM_TOKEN:-}
+      PTOHACKER_TELEGRAM_CHAT_ID: ${PTOHACKER_TELEGRAM_CHAT_ID:-}
+      PTOHACKER_FARES: ${PTOHACKER_FARES:-mock}
+    volumes:
+      - pto-data:/data
+    ports:
+      - "127.0.0.1:8501:8501"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # The always-on half: wakes every 5 minutes, runs whatever is due, and sends
+  # alerts. Shares the database with the app -- SQLite is in WAL mode so both
+  # can use it at once.
+  worker:
+    build: .
+    image: pto-hacker:latest
+    restart: unless-stopped
+    command: ["python", "daemon.py"]
+    environment:
+      PTOHACKER_DB: /data/pto.db
+      # The daemon schedules by LOCAL hour. Without TZ a container runs UTC,
+      # so an "08:00" digest would arrive at 13:30 in India.
+      TZ: ${TZ:-Asia/Kolkata}
+      PTOHACKER_NOTIFY: ${PTOHACKER_NOTIFY:-console}
+      PTOHACKER_TELEGRAM_TOKEN: ${PTOHACKER_TELEGRAM_TOKEN:-}
+      PTOHACKER_TELEGRAM_CHAT_ID: ${PTOHACKER_TELEGRAM_CHAT_ID:-}
+      PTOHACKER_FARES: ${PTOHACKER_FARES:-mock}
+    volumes:
+      - pto-data:/data
+    depends_on:
+      - app
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Only started with --profile public. Gives automatic HTTPS and a password.
+  caddy:
+    image: caddy:2.8-alpine
+    profiles: ["public"]
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      PTO_DOMAIN: "${PTO_DOMAIN:?set PTO_DOMAIN in .env}"
+      PTO_USER: "${PTO_USER:?set PTO_USER in .env}"
+      PTO_PASSWORD_HASH: "${PTO_PASSWORD_HASH:?see .env.example for how to generate this}"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - app
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  pto-data:
+  caddy-data:
+  caddy-config:

@@ -1,0 +1,32 @@
+{
+  "country": "IN",
+  "year": 2026,
+  "note": "Lunar/Islamic dates are ESTIMATES and shift with moon sighting. Verify entries marked confidence=low against your company's official holiday calendar before planning leave.",
+  "holidays": [
+    {"date": "2026-01-01", "name": "New Year's Day",              "scope": "optional", "confidence": "high"},
+    {"date": "2026-01-14", "name": "Makar Sankranti / Pongal",    "scope": "regional", "confidence": "high"},
+    {"date": "2026-01-26", "name": "Republic Day",                "scope": "national", "confidence": "high"},
+    {"date": "2026-02-15", "name": "Maha Shivaratri",             "scope": "regional", "confidence": "medium"},
+    {"date": "2026-03-03", "name": "Holika Dahan",                "scope": "optional", "confidence": "medium"},
+    {"date": "2026-03-04", "name": "Holi",                        "scope": "national", "confidence": "medium"},
+    {"date": "2026-03-20", "name": "Eid-ul-Fitr",                 "scope": "national", "confidence": "low"},
+    {"date": "2026-03-26", "name": "Ram Navami",                  "scope": "regional", "confidence": "medium"},
+    {"date": "2026-03-31", "name": "Mahavir Jayanti",             "scope": "optional", "confidence": "medium"},
+    {"date": "2026-04-03", "name": "Good Friday",                 "scope": "national", "confidence": "high"},
+    {"date": "2026-04-14", "name": "Dr. Ambedkar Jayanti",        "scope": "national", "confidence": "high"},
+    {"date": "2026-05-01", "name": "May Day / Buddha Purnima",    "scope": "regional", "confidence": "medium"},
+    {"date": "2026-05-27", "name": "Bakrid / Eid-ul-Adha",        "scope": "national", "confidence": "low"},
+    {"date": "2026-06-26", "name": "Muharram",                    "scope": "national", "confidence": "low"},
+    {"date": "2026-08-15", "name": "Independence Day",            "scope": "national", "confidence": "high"},
+    {"date": "2026-08-26", "name": "Milad-un-Nabi",               "scope": "national", "confidence": "low"},
+    {"date": "2026-09-04", "name": "Janmashtami",                 "scope": "national", "confidence": "medium"},
+    {"date": "2026-09-14", "name": "Ganesh Chaturthi",            "scope": "regional", "confidence": "medium"},
+    {"date": "2026-10-02", "name": "Gandhi Jayanti",              "scope": "national", "confidence": "high"},
+    {"date": "2026-10-20", "name": "Dussehra / Vijayadashami",    "scope": "national", "confidence": "medium"},
+    {"date": "2026-11-08", "name": "Diwali",                      "scope": "national", "confidence": "medium"},
+    {"date": "2026-11-09", "name": "Govardhan Puja",              "scope": "optional", "confidence": "medium"},
+    {"date": "2026-11-10", "name": "Bhai Dooj",                   "scope": "optional", "confidence": "medium"},
+    {"date": "2026-11-24", "name": "Guru Nanak Jayanti",          "scope": "national", "confidence": "medium"},
+    {"date": "2026-12-25", "name": "Christmas Day",               "scope": "national", "confidence": "high"}
+  ]
+}

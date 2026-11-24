@@ -1,0 +1,19 @@
+# Runtime state: the SQLite DB and its WAL sidecars live here.
+output/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Local deployment config -- never commit credentials
+.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# scratch files from research
+av*.html
